@@ -22,7 +22,7 @@ class Campus extends Model implements SluggableInterface {
     ];
 
     public function staff() {
-        return $this->hasMany('App\Staff')->orderBy('sort');
+        return $this->hasMany('FaithPromise\Shared\Models\Staff')->orderBy('sort');
     }
 
     public function getUrlAttribute() {

@@ -13,7 +13,7 @@ class MissionTrip extends Model
     protected $dates = ['starts_at', 'ends_at', 'created_at', 'updated_at'];
 
     public function missionlocation() {
-        return $this->belongsTo('App\MissionLocation');
+        return $this->belongsTo('FaithPromise\Shared\Models\MissionLocation');
     }
 
     public function getIsHappeningNowAttribute() {

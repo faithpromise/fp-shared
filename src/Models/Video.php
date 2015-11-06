@@ -21,11 +21,11 @@ class Video extends Model implements SluggableInterface {
     ];
 
     public function series() {
-        return $this->belongsTo('App\Series');
+        return $this->belongsTo('FaithPromise\Shared\Models\Series');
     }
 
     public function speaker() {
-        return $this->belongsTo('App\Staff', 'speaker_id', 'id');
+        return $this->belongsTo('FaithPromise\Shared\Models\Staff', 'speaker_id', 'id');
     }
 
     public function getImageAttribute() {

@@ -23,15 +23,15 @@ class Staff extends Model implements SluggableInterface {
     ];
 
     public function campus() {
-        return $this->belongsTo('App\Campus');
+        return $this->belongsTo('FaithPromise\Shared\Models\Campus');
     }
 
     public function teams() {
-        return $this->belongsToMany('App\Team');
+        return $this->belongsToMany('FaithPromise\Shared\Models\Team');
     }
 
     public function ministries() {
-        return $this->belongsToMany('App\Ministry', 'staff_ministry');
+        return $this->belongsToMany('FaithPromise\Shared\Models\Ministry', 'staff_ministry');
     }
 
     public function getUrlAttribute() {

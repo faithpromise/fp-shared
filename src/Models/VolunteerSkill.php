@@ -10,7 +10,7 @@ class VolunteerSkill extends Model {
     protected $fillable = ['title', 'description'];
 
     public function volunteer_positions() {
-        return $this->belongsToMany('App\VolunteerPosition', 'volunteer_positions_skills');
+        return $this->belongsToMany('FaithPromise\Shared\Models\VolunteerPosition', 'volunteer_positions_skills');
     }
 
 }

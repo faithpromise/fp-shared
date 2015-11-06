@@ -17,7 +17,7 @@ class CalendarEvent extends Model
 
     public function calendar()
     {
-        return $this->belongsTo('App\Event', 'calendar_event_number', 'event_number');
+        return $this->belongsTo('FaithPromise\Shared\Models\Event', 'calendar_event_number', 'event_number');
     }
 
     public function scopeWithinRange($query, $start, $end)

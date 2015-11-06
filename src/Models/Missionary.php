@@ -11,7 +11,7 @@ class Missionary extends Model
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     public function missionLocation() {
-        return $this->belongsTo('App\MissionLocation');
+        return $this->belongsTo('FaithPromise\Shared\Models\MissionLocation');
     }
 
     public function getImageAttribute() {

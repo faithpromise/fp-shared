@@ -12,11 +12,11 @@ class StudyTime extends Model {
     protected $dates = ['starts_at', 'expire_at', 'created_at', 'updated_at'];
 
     public function study() {
-        return $this->belongsTo('App\Study');
+        return $this->belongsTo('FaithPromise\Shared\Models\Study');
     }
 
     public function campus() {
-        return $this->belongsTo('App\Campus');
+        return $this->belongsTo('FaithPromise\Shared\Models\Campus');
     }
 
     public function getDateRangeAttribute() {

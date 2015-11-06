@@ -20,11 +20,11 @@ class MissionLocation extends Model implements SluggableInterface {
     ];
 
     public function missionaries() {
-        return $this->hasMany('App\Missionary');
+        return $this->hasMany('FaithPromise\Shared\Models\Missionary');
     }
 
     public function missionTrips() {
-        return $this->hasMany('App\MissionTrip');
+        return $this->hasMany('FaithPromise\Shared\Models\MissionTrip');
     }
 
     public function getUrlAttribute() {

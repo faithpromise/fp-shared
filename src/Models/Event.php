@@ -23,11 +23,11 @@ class Event extends Model implements SluggableInterface {
     ];
 
     public function ministry() {
-        return $this->belongsTo('App\Ministry');
+        return $this->belongsTo('FaithPromise\Shared\Models\Ministry');
     }
 
     public function calendar() {
-        return $this->hasMany('App\CalendarEvent', 'event_number', 'calendar_event_number');
+        return $this->hasMany('FaithPromise\Shared\Models\CalendarEvent', 'event_number', 'calendar_event_number');
     }
 
     public function getImageAttribute() {

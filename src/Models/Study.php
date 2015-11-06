@@ -20,7 +20,7 @@ class Study extends Model implements SluggableInterface {
     ];
 
     public function times() {
-        return $this->hasMany('App\StudyTime');
+        return $this->hasMany('FaithPromise\Shared\Models\StudyTime');
     }
 
     public function getDateRangeAttribute() {

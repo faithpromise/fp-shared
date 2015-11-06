@@ -22,6 +22,6 @@ class Team extends Model implements SluggableInterface {
     ];
 
     public function staff() {
-        return $this->belongsToMany('App\Staff')->orderBy('sort');
+        return $this->belongsToMany('FaithPromise\Shared\Models\Staff')->orderBy('sort');
     }
 }

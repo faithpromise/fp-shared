@@ -22,11 +22,11 @@ class Series extends Model implements SluggableInterface {
     ];
 
     public function videos() {
-        return $this->hasMany('App\Video')->orderBy('sermon_date');
+        return $this->hasMany('FaithPromise\Shared\Models\Video')->orderBy('sermon_date');
     }
 
     public function promo() {
-        return $this->hasOne('App\Video')->where('type', '=', 'promo');
+        return $this->hasOne('FaithPromise\Shared\Models\Video')->where('type', '=', 'promo');
     }
 
     public function getImageAttribute() {

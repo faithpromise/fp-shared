@@ -20,14 +20,14 @@ class Ministry extends Model implements SluggableInterface {
     ];
 
     public function staff() {
-        return $this->belongsToMany('App\Staff', 'staff_ministry')->orderBy('sort');
+        return $this->belongsToMany('FaithPromise\Shared\Models\Staff', 'staff_ministry')->orderBy('sort');
     }
 
     public function events() {
-        return $this->hasMany('App\Event')->orderBy('sort');
+        return $this->hasMany('FaithPromise\Shared\Models\Event')->orderBy('sort');
     }
 
     public function volunteer_positions() {
-        return $this->hasMany('App\VolunteerPosition');
+        return $this->hasMany('FaithPromise\Shared\Models\VolunteerPosition');
     }
 }
