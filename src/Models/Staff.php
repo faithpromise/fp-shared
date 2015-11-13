@@ -38,9 +38,12 @@ class Staff extends Model implements SluggableInterface {
         return '/staff/' . $this->slug;
     }
 
+    public function getImagePathAttribute() {
+        return 'images/staff/' . $this->slug . '-square.jpg';
+    }
+
     public function getImageAttribute() {
-        $img = 'images/staff/' . $this->slug . '-square.jpg';
-        return asset_exists($img) ? $img : 'images/staff/default-square.jpg';
+        return $this->has_image ? $this->image_path : 'images/staff/default-square.jpg';
     }
 
     public function getBioAttribute() {
