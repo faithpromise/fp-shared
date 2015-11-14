@@ -7,7 +7,7 @@ function image_url_raw($image_path, $format = null) {
         $image_path = preg_replace('/(-(square|tall|wide))?\.jpg$/', $format_suffix, $image_path);
     }
 
-    return 'http:' . FP_CDN_URL . '/' . $image_path;
+    return 'http:' . config('site.cdn_url', FP_CDN_URL) . '/' . $image_path;
 }
 
 function image_url($viewport_width, $image_width, $image_path, $format = null) {
@@ -26,7 +26,7 @@ function image_url($viewport_width, $image_width, $image_path, $format = null) {
         $image_path = preg_replace('/(-(square|tall|wide))?\.(jpg|png)$/', $format_suffix, $image_path_parts['path']);
     }
 
-    $img_url = FP_CDN_URL . '/' . $viewport_width . '/' . $image_width . '/' . $image_path . (count($url_params) ? '?' . implode('&', $url_params) : '');
+    $img_url = config('site.cdn_url', FP_CDN_URL) . '/' . $viewport_width . '/' . $image_width . '/' . $image_path . (count($url_params) ? '?' . implode('&', $url_params) : '');
 
     return $img_url;
 }
