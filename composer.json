@@ -17,6 +17,7 @@
             "FaithPromise\\Shared\\": "src"
         },
         "files": [
+            "src/config.php",
             "src/helpers/images.php"
         ]
     }
