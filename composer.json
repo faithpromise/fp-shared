@@ -15,6 +15,9 @@
     "autoload": {
         "psr-4": {
             "FaithPromise\\Shared\\": "src"
-        }
+        },
+        "files": [
+            "src/helpers/images.php"
+        ]
     }
 }
