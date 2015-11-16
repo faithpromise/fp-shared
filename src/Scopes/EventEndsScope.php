@@ -11,6 +11,8 @@ use Carbon\Carbon;
 
 class EventEndsScope implements ScopeInterface {
 
+    protected $timezone = 'America/New_York';
+
     /**
      * Apply scope on the query.
      *
@@ -23,7 +25,7 @@ class EventEndsScope implements ScopeInterface {
         $column = $model->getQualifiedEventEndsColumn();
 
         $builder->where(function($query) use ($column) {
-            $query->whereNull($column)->orWhere($column, '>', Carbon::now()->endOfDay());
+            $query->whereNull($column)->orWhere($column, '>', Carbon::now($this->timezone)->endOfDay());
         });
 
         $this->addWithPast($builder);
@@ -102,7 +104,7 @@ class EventEndsScope implements ScopeInterface {
      */
     protected function isEventEndConstraint(array $where, $column)
     {
-        $remove_after = Carbon::now()->endOfDay();
+        $remove_after = Carbon::now($this->timezone)->endOfDay();
         $where_string = 'Null_' . $column . '_and';
 
         return (

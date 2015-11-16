@@ -12,6 +12,8 @@ use Carbon\Carbon;
 // http://softonsofa.com/laravel-5-eloquent-global-scope-how-to/
 class PublishedScope implements ScopeInterface {
 
+    protected $timezone = 'America/New_York';
+
     /**
      * Apply scope on the query.
      *
@@ -24,7 +26,7 @@ class PublishedScope implements ScopeInterface {
         $column = $model->getQualifiedPublishedColumn();
 
         $builder->where(function($query) use ($column) {
-            $query->whereNull($column)->orWhere($column, '<', Carbon::now());
+            $query->whereNull($column)->orWhere($column, '<', Carbon::now($this->timezone));
         });
 
         $this->addWithDrafts($builder);
