@@ -34,6 +34,10 @@ class Staff extends Model implements SluggableInterface {
         return $this->belongsToMany('FaithPromise\Shared\Models\Ministry', 'staff_ministry');
     }
 
+    public function photo() {
+        return $this->hasOne('FaithPromise\Shared\Models\Asset', 'id', 'photo_id');
+    }
+
     public function getUrlAttribute() {
         return '/staff/' . $this->slug;
     }
@@ -43,7 +47,8 @@ class Staff extends Model implements SluggableInterface {
     }
 
     public function getImageAttribute() {
-        return $this->has_image ? $this->image_path : 'images/staff/default-square.jpg';
+        $photo = $this->photo;
+        return $photo ? $photo->path : 'images/staff/default-square.jpg';
     }
 
     public function getBioAttribute() {
