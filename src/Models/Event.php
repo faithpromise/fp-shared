@@ -2,6 +2,7 @@
 
 namespace FaithPromise\Shared\Models;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use FaithPromise\Shared\Traits\PublishedTrait;
 use FaithPromise\Shared\Traits\ExpiredTrait;
@@ -71,6 +72,10 @@ class Event extends Model implements SluggableInterface {
 
     public function getCardUrlAttribute() {
         return $this->getUrlAttribute();
+    }
+
+    public function scopeFeatured($query) {
+        return $query->orderBy(DB::raw('`feature_at` <= NOW() desc, `feature_at` desc, `sort`'))->take(3);
     }
 
 }
