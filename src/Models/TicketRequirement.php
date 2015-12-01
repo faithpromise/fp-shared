@@ -10,7 +10,7 @@ class TicketRequirement extends Model {
     use SoftDeletes;
 
     protected $dates = ['created_at', 'updated_at'];
-    protected $fillable = ['zendesk_ticket_id', 'title', 'body', 'sort', 'completed_by'];
+    protected $fillable = ['zendesk_ticket_id', 'title', 'body', 'sort', 'created_by'];
     protected $hidden = ['created_at', 'updated_at'];
 
     public function author() {
