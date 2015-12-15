@@ -18,9 +18,9 @@ class Event extends Model implements SluggableInterface {
     protected $dates = ['publish_at', 'expires_at', 'created_at', 'updated_at'];
 
     protected $sluggable = [
-        'build_from'      => 'title',
-        'save_to'         => 'slug',
-        'unique'          => false
+        'build_from' => 'title',
+        'save_to'    => 'slug',
+        'unique'     => false
     ];
 
     public function ministry() {
@@ -46,6 +46,7 @@ class Event extends Model implements SluggableInterface {
 
     public function getUrlAttribute() {
         $url = $this->getOriginal('url');
+
         return strlen($url) ? $url : route('event', ['event' => $this->slug]);
     }
 
@@ -61,8 +62,7 @@ class Event extends Model implements SluggableInterface {
         return $this->excerpt;
     }
 
-    public function getCardImageAttribute()
-    {
+    public function getCardImageAttribute() {
         return $this->image;
     }
 
