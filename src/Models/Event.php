@@ -67,7 +67,7 @@ class Event extends Model implements SluggableInterface {
     }
 
     public function getCardUrlTextAttribute() {
-        return 'More Details';
+        return empty($this->url_text) ? 'More Details' : $this->url_text;
     }
 
     public function getCardUrlAttribute() {
