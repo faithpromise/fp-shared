@@ -41,6 +41,10 @@ class MissionLocation extends Model implements SluggableInterface {
         return count($dates) ? implode('<br>&amp; ', $dates) : 'Dates TBD';
     }
 
+    public function getCardLinkIdAttribute() {
+        return 'to_missionLocation' . $this->slug . '_from_card';
+    }
+
     public function getCardTitleAttribute() {
         return $this->name;
     }

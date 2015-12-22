@@ -38,6 +38,10 @@ class Organization extends Model implements SluggableInterface {
         return strlen($excerpt) ? $excerpt : excerpt($this->description, 110);
     }
 
+    public function getCardLinkIdAttribute() {
+        return 'to_organization' . $this->slug . '_from_card';
+    }
+
     public function getCardTitleAttribute() {
         return $this->name;
     }

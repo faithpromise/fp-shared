@@ -50,6 +50,10 @@ class Event extends Model implements SluggableInterface {
         return strlen($url) ? $url : route('event', ['event' => $this->slug]);
     }
 
+    public function getCardLinkIdAttribute() {
+        return 'to_event_' . $this->slug . '_from_card';
+    }
+
     public function getCardTitleAttribute() {
         return $this->title;
     }

@@ -38,6 +38,10 @@ class Campus extends Model implements SluggableInterface {
         return is_array($times) ? implode('; ', $times) : '';
     }
 
+    public function getCardLinkIdAttribute() {
+        return 'to_campus_' . $this->slug . '_from_card';
+    }
+
     public function getCardTitleAttribute() {
         return $this->location;
     }

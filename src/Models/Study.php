@@ -63,6 +63,10 @@ class Study extends Model implements SluggableInterface {
         return 'Times &amp; Registration';
     }
 
+    public function getCardLinkIdAttribute() {
+        return 'to_study' . $this->slug . '_from_card';
+    }
+
     public function getCardTitleAttribute() {
         return $this->name;
     }

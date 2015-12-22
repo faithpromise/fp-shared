@@ -70,6 +70,10 @@ class Staff extends Model implements SluggableInterface {
         return empty($this->instagram) ? null : instagram_url($this->instagram);
     }
 
+    public function getProfileLinkIdAttribute() {
+        return 'to_staff_' . $this->slug . '_from_profile';
+    }
+
     public function getProfileNameAttribute() {
         return $this->display_name;
     }

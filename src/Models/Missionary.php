@@ -19,6 +19,10 @@ class Missionary extends Model
         return asset_exists($img) ? $img : 'https://randomuser.me/api/portraits/lego/' . rand(0, 9) .'.jpg';
     }
 
+    public function getProfileLinkIdAttribute() {
+        return 'to_missionary_' . $this->id . '_from_profile';
+    }
+
     public function getProfileNameAttribute() {
         return $this->name;
     }
