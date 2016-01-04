@@ -32,8 +32,10 @@ class Video extends Model implements SluggableInterface {
         $series = $this->Series;
         if ($series->is_official) {
             return 'images/series/' . $series->slug . '-tall.jpg';
-        } else {
+        } else if ($this->Speaker) {
             return $this->Speaker->image;
+        } else {
+            return 'images/general/default-tall.jpg';
         }
     }
 
