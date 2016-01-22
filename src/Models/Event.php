@@ -2,6 +2,7 @@
 
 namespace FaithPromise\Shared\Models;
 
+use FaithPromise\Shared\Traits\SiteContextTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use FaithPromise\Shared\Traits\PublishedTrait;
@@ -14,6 +15,7 @@ class Event extends Model implements SluggableInterface {
     use PublishedTrait;
     use ExpiredTrait;
     use SluggableTrait;
+    use SiteContextTrait;
 
     protected $dates = ['publish_at', 'expires_at', 'created_at', 'updated_at'];
 
