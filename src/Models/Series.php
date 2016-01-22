@@ -3,6 +3,7 @@
 namespace FaithPromise\Shared\Models;
 
 use Carbon\Carbon;
+use FaithPromise\Shared\Traits\SiteContextTrait;
 use Illuminate\Database\Eloquent\Model;
 use FaithPromise\Shared\Traits\PublishedTrait;
 use Cviebrock\EloquentSluggable\SluggableInterface;
@@ -12,6 +13,7 @@ class Series extends Model implements SluggableInterface {
 
     use PublishedTrait;
     use SluggableTrait;
+    use SiteContextTrait;
 
     protected $dates = ['starts_at', 'publish_at', 'created_at', 'updated_at'];
 
