@@ -33,12 +33,12 @@ class Series extends Model implements SluggableInterface {
         return 'images/series/' . $this->slug . '-wide.jpg';
     }
 
-    public function getUrlAttribute() {
-        return route('series', ['series' => $this->slug]);
+    public function getHomeImageAttribute() {
+        return 'images/series/' . $this->slug . '-home-wide.jpg';
     }
 
-    public function getHomeCssAttribute() {
-        return '/build/css/' . $this->slug . '.css';
+    public function getUrlAttribute() {
+        return route('series', ['series' => $this->slug]);
     }
 
     public function getWhenAttribute() {
