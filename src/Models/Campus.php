@@ -47,7 +47,11 @@ class Campus extends Model implements SluggableInterface {
     }
 
     public function getCardSubtitleAttribute() {
-        return $this->name . ' Campus';
+        if ($this->opened_at) {
+            return $this->name . ' Campus';
+        } else {
+            return 'Coming Soon';
+        }
     }
 
     public function getCardTextAttribute() {
