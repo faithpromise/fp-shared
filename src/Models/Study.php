@@ -5,6 +5,7 @@ namespace FaithPromise\Shared\Models;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
+use VTalbot\Markdown\Facades\Markdown;
 
 class Study extends Model implements SluggableInterface {
 
@@ -34,6 +35,10 @@ class Study extends Model implements SluggableInterface {
         } else {
             return $this->starts_at->format('M j') . ' - ' . $this->ends_at->format('j, Y');
         }
+    }
+
+    public function getDescriptionAttribute() {
+        return trim(Markdown::string($this->getOriginal('description')));
     }
 
     public function getHasDescriptionAttribute() {
