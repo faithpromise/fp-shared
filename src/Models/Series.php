@@ -9,6 +9,12 @@ use FaithPromise\Shared\Traits\PublishedTrait;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 
+/**
+ * Class Series
+ * @package FaithPromise\Shared\Models
+ *
+ * @method static \Illuminate\Support\Collection currentSeries()
+ */
 class Series extends Model implements SluggableInterface {
 
     use PublishedTrait;
