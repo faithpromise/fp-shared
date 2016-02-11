@@ -16,4 +16,10 @@ class Event extends Post implements SluggableInterface {
         return $this->hasMany('FaithPromise\Shared\Models\CalendarEvent', 'event_number', 'calendar_event_number');
     }
 
+    public function getUrlAttribute() {
+        $url = $this->getOriginal('url');
+
+        return strlen($url) ? $url : route('event', ['event' => $this->slug]);
+    }
+
 }

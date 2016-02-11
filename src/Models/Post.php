@@ -50,6 +50,35 @@ class Post extends Model implements SluggableInterface {
         });
     }
 
+    public static function hydrate(array $items, $connection = null) {
+
+        $instance = (new static)->setConnection($connection);
+
+        $items = array_map(function ($item) use ($instance, $connection) {
+
+            $class = '\\' . __NAMESPACE__ . '\\' . studly_case($item->{'type'});
+
+            if (class_exists($class)) {
+                return $child = (new $class)->setConnection($connection)->newFromBuilder($item);
+            }
+
+            return $instance->newFromBuilder($item);
+
+        }, $items);
+
+        return $instance->newCollection($items);
+    }
+
+    public function post_locations() {
+        return $this->hasMany(PostLocation::class, 'post_id', 'id');
+    }
+
+    public function scopeByLocation($query, $location) {
+        return $query->whereHas('post_locations', function ($q) use ($location) {
+            $q->where('location', '=', $location);
+        });
+    }
+
     public function ministry() {
         return $this->belongsTo('FaithPromise\Shared\Models\Ministry');
     }
@@ -57,20 +86,10 @@ class Post extends Model implements SluggableInterface {
     public function getImageAttribute() {
 
         if (empty($this->getOriginal('image'))) {
-            return 'images/' . str_plural($this->type) . '/' . $this->slug . '-tall.jpg';
+            return 'images/' . str_plural($this->type) . '/' . $this->slug . '.jpg';
         }
 
         return $this->getOriginal('image');
-    }
-
-    public function getOriginalUrlAttribute() {
-        return $this->getOriginal('url');
-    }
-
-    public function getUrlAttribute() {
-        $url = $this->getOriginal('url');
-
-        return strlen($url) ? $url : route($this->type, ["{$this->type}" => $this->slug]);
     }
 
     public function getCardLinkIdAttribute() {
@@ -98,7 +117,7 @@ class Post extends Model implements SluggableInterface {
     }
 
     public function getCardUrlAttribute() {
-        return $this->getUrlAttribute();
+        return $this->url;
     }
 
     public function scopeFeatured($query) {
