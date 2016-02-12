@@ -34,6 +34,12 @@ class Staff extends Model implements SluggableInterface {
         return $this->belongsToMany('FaithPromise\Shared\Models\Ministry', 'staff_ministry');
     }
 
+    public function scopeStudent($query) {
+        return $query->whereHas('teams', function($query) {
+            $query->where('slug', '=', 'students');
+        })->orderBy('sort', 'asc');
+    }
+
     public function getUrlAttribute() {
         return '/staff/' . $this->slug;
     }
