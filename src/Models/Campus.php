@@ -22,7 +22,8 @@ class Campus extends Model implements SluggableInterface {
     ];
 
     public function staff() {
-        return $this->hasMany('FaithPromise\Shared\Models\Staff')->orderBy('sort');
+        /* Must refer to foreign key because StudentCampus extends this model */
+        return $this->hasMany('FaithPromise\Shared\Models\Staff', 'campus_id')->orderBy('sort');
     }
 
     public function getUrlAttribute() {
