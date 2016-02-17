@@ -121,7 +121,7 @@ class Post extends Model implements SluggableInterface {
     }
 
     public function scopeFeatured($query) {
-        return $query->orderBy(DB::raw('`feature_at` <= NOW() desc, `feature_at` desc, `sort`'))->take(3);
+        $query->orderBy(DB::raw('feature_at IS NULL asc, feature_at <= NOW() desc, feature_at desc, sort'))->take(3);
     }
 
 }
