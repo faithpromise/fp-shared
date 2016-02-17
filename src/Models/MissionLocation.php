@@ -35,7 +35,7 @@ class MissionLocation extends Model implements SluggableInterface {
         $dates = [];
 
         foreach ($this->missiontrips as $trip) {
-            $dates[] = $trip->date_range;
+            $dates[] = $trip->date_range . ($trip->is_full ? ' (FULL)' : '');
         }
 
         return count($dates) ? implode('<br>&amp; ', $dates) : 'Dates TBD';
