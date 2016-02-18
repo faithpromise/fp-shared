@@ -2,14 +2,12 @@
 
 namespace FaithPromise\Shared\Scopes;
 
-use Illuminate\Database\Query\Builder as BaseBuilder;
-
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ScopeInterface;
+use Illuminate\Database\Eloquent\Scope;
 use Carbon\Carbon;
 
-class EventEndsScope implements ScopeInterface {
+class EventEndsScope implements Scope {
 
     protected $timezone = 'America/New_York';
 
@@ -43,4 +41,5 @@ class EventEndsScope implements ScopeInterface {
             return $builder->withoutGlobalScope($this);
         });
     }
+
 }

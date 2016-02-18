@@ -2,15 +2,12 @@
 
 namespace FaithPromise\Shared\Scopes;
 
-use Illuminate\Database\Query\Builder as BaseBuilder;
-
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ScopeInterface;
+use Illuminate\Database\Eloquent\Scope;
 use Carbon\Carbon;
 
-// http://softonsofa.com/laravel-5-eloquent-global-scope-how-to/
-class PublishedScope implements ScopeInterface {
+class PublishedScope implements Scope {
 
     protected $timezone = 'America/New_York';
 

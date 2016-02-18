@@ -4,9 +4,9 @@ namespace FaithPromise\Shared\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ScopeInterface;
+use Illuminate\Database\Eloquent\Scope;
 
-class PostTypeEventScope implements ScopeInterface {
+class PostTypeEventScope implements Scope {
 
     /**
      * Apply scope on the query.
