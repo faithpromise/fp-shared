@@ -19,15 +19,4 @@ class StudentCampusScope implements ScopeInterface {
         $builder->whereNotNull('student_times');
     }
 
-    /**
-     * Remove the scope from the given Eloquent query builder.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder $builder
-     * @param  \Illuminate\Database\Eloquent\Model $model
-     *
-     * @return void
-     */
-    public function remove(Builder $builder, Model $model) {
-        // Not applicable
-    }
 }

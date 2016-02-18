@@ -8,9 +8,13 @@
         }
     ],
     "require": {
-        "laravel/framework": "5.1.*",
+        "laravel/framework": "5.2.*",
         "cviebrock/eloquent-sluggable": "^3.0",
         "vtalbot/markdown": "^2.0"
+    },
+    "require-dev": {
+        "symfony/dom-crawler": "~3.0",
+        "symfony/css-selector": "~3.0"
     },
     "autoload": {
         "psr-4": {
