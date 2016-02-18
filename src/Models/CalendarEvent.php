@@ -32,7 +32,8 @@ class CalendarEvent extends Model
     {
         $start = Carbon::create($year, $month, 1)->startOfMonth();
         $end = $start->copy()->endOfMonth();
-        return (new static)->withinRange($start, $end)->count() > 0;
+        $num = (new static)->where('starts_at', '>', $start)->where('ends_at', '<', $end)->count();
+        return $num > 0;
     }
 
 }
