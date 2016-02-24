@@ -40,7 +40,10 @@ class Campus extends Model implements SluggableInterface {
 
     public function getTimesAttribute() {
         $times = json_decode($this->getOriginal('times'));
-        return is_array($times) ? implode('; ', $times) : '';
+        if (property_exists($times, 'normal')) {
+            return $times->normal;
+        }
+        return null;
     }
 
     public function getCardLinkIdAttribute() {
