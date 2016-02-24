@@ -2,6 +2,7 @@
 
 namespace FaithPromise\Shared\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentSluggable\SluggableInterface;
@@ -43,6 +44,34 @@ class Campus extends Model implements SluggableInterface {
         if (property_exists($times, 'normal')) {
             return $times->normal;
         }
+        return null;
+    }
+
+    public function getChristmasTimesAttribute() {
+        $today = Carbon::today();
+        $christmas = $today->copy()->month(12)->day(25)->endOfDay();
+
+        if ($christmas->isFuture() && $christmas->diffInDays($today) <= 32) {
+            $times = json_decode($this->getOriginal('times'));
+            if (property_exists($times, 'christmas') && property_exists($times->christmas, $christmas->year)) {
+                return $times->christmas->{$christmas->year};
+            }
+        }
+
+        return null;
+    }
+
+    public function getEasterTimesAttribute() {
+        $today = Carbon::today();
+        $easter = Carbon::createFromTimestamp(easter_date($today->year))->endOfDay();
+
+        if ($easter->isFuture() && $easter->diffInDays($today) <= 32) {
+            $times = json_decode($this->getOriginal('times'));
+            if (property_exists($times, 'easter') && property_exists($times->easter, $easter->year)) {
+                return $times->easter->{$easter->year};
+            }
+        }
+
         return null;
     }
 
