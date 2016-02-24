@@ -26,6 +26,10 @@ class Campus extends Model implements SluggableInterface {
         return $this->hasMany('FaithPromise\Shared\Models\Staff', 'campus_id')->orderBy('sort');
     }
 
+    public function getFullNameAttribute() {
+        return $this->name . ' Campus';
+    }
+
     public function getUrlAttribute() {
         return '/locations/' . $this->slug;
     }
@@ -49,7 +53,7 @@ class Campus extends Model implements SluggableInterface {
 
     public function getCardSubtitleAttribute() {
         if ($this->opened_at) {
-            return $this->name . ' Campus';
+            return $this->full_name;
         } else {
             return 'Coming Soon';
         }
