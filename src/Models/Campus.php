@@ -40,10 +40,13 @@ class Campus extends Model implements SluggableInterface {
     }
 
     public function getTimesAttribute() {
+
         $times = json_decode($this->getOriginal('times'));
+
         if (property_exists($times, 'normal')) {
-            return $times->normal;
+            return $this->prepareTimes($times->normal);
         }
+
         return null;
     }
 
@@ -54,7 +57,7 @@ class Campus extends Model implements SluggableInterface {
         if ($christmas->isFuture() && $christmas->diffInDays($today) <= 32) {
             $times = json_decode($this->getOriginal('times'));
             if (property_exists($times, 'christmas') && property_exists($times->christmas, $christmas->year)) {
-                return $times->christmas->{$christmas->year};
+                return $this->prepareTimes($times->christmas->{$christmas->year});
             }
         }
 
@@ -68,7 +71,7 @@ class Campus extends Model implements SluggableInterface {
         if ($easter->isFuture() && $easter->diffInDays($today) <= 32) {
             $times = json_decode($this->getOriginal('times'));
             if (property_exists($times, 'easter') && property_exists($times->easter, $easter->year)) {
-                return $times->easter->{$easter->year};
+                return $this->prepareTimes($times->easter->{$easter->year});
             }
         }
 
@@ -92,7 +95,17 @@ class Campus extends Model implements SluggableInterface {
     }
 
     public function getCardTextAttribute() {
-        return str_replace('; ', '<br>', $this->times);
+
+        $formatted = [];
+
+        if (!$this->times) {
+            return null;
+        }
+
+        foreach($this->times as $service) {
+            $formatted[] = substr($service->day, 0, 3) . ' at ' . $service->formatted_times;
+        }
+        return implode('<br>', $formatted);
     }
 
     public function getCardImageAttribute() {
@@ -105,5 +118,30 @@ class Campus extends Model implements SluggableInterface {
 
     public function getCardUrlAttribute() {
         return $this->getUrlAttribute();
+    }
+
+    private function prepareTimes(&$services) {
+        foreach($services as $service) {
+            $service->formatted_times = $this->formatTimes($service->times);
+        }
+        return $services;
+    }
+
+    private function formatTimes($times) {
+
+        $formatted_times = array_map(function($time) {
+            return '<span class="no-wrap">' . $time . '</span>';
+        }, $times);
+
+        $num_items = count($formatted_times);
+
+        if ($num_items === 2) {
+            $formatted_times = [implode(' &amp; ', $formatted_times)];
+        } else if ($num_items > 2) {
+            $formatted_times[$num_items-1] = '&amp; ' . end($formatted_times);
+        }
+
+        return implode(', ', $formatted_times);
+
     }
 }
