@@ -13,9 +13,26 @@ class StudentCampus extends Campus {
         parent::boot();
     }
 
-    public function getTimesAttribute() {
-        $times = json_decode($this->getOriginal('student_times'));
-        return is_array($times) ? implode('; ', $times) : '';
+    public function getCardTextAttribute() {
+
+        if ($this->student_christmas_times) {
+            return 'Check here for our regular & special Christmas service times...';
+        }
+
+        if ($this->student_easter_times) {
+            return 'Check here for our regular & special Easter service times...';
+        }
+
+        $formatted = [];
+
+        if (!$this->student_times) {
+            return null;
+        }
+
+        foreach($this->student_times as $service) {
+            $formatted[] = substr($service->day, 0, 3) . ' at ' . $service->formatted_times;
+        }
+        return implode('<br>', $formatted);
     }
 
 }

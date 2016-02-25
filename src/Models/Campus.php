@@ -40,57 +40,35 @@ class Campus extends Model implements SluggableInterface {
     }
 
     public function getTimesAttribute() {
+        return $this->convertTimes();
+    }
 
-        $times = json_decode($this->getOriginal('times'));
-
-        if (property_exists($times, 'normal')) {
-            return $this->prepareTimes($times->normal);
-        }
-
-        return null;
+    public function getStudentTimesAttribute() {
+        return $this->convertTimes('student_times');
     }
 
     public function getFormattedTimesAttribute() {
+        return $this->formatServices($this->times);
+    }
 
-        $services = $this->times;
-
-        if (!$services) {
-            return '';
-        }
-
-        $times = array_map(function($service) {
-            return $service->day . ' at ' . $service->formatted_times;
-        }, $services);
-
-        return implode(', ', $times);
+    public function getFormattedStudentTimesAttribute() {
+        return $this->formatServices($this->student_times);
     }
 
     public function getChristmasTimesAttribute() {
-        $today = Carbon::today();
-        $christmas = $today->copy()->month(12)->day(25)->endOfDay();
-
-        if ($christmas->isFuture() && $christmas->diffInDays($today) <= 32) {
-            $times = json_decode($this->getOriginal('times'));
-            if (property_exists($times, 'christmas') && property_exists($times->christmas, $christmas->year)) {
-                return $this->prepareTimes($times->christmas->{$christmas->year});
-            }
-        }
-
-        return null;
+        return $this->convertChristmasTimes();
     }
 
     public function getEasterTimesAttribute() {
-        $today = Carbon::today();
-        $easter = Carbon::createFromTimestamp(easter_date($today->year))->endOfDay();
+        return $this->convertEasterTimes();
+    }
 
-        if ($easter->isFuture() && $easter->diffInDays($today) <= 32) {
-            $times = json_decode($this->getOriginal('times'));
-            if (property_exists($times, 'easter') && property_exists($times->easter, $easter->year)) {
-                return $this->prepareTimes($times->easter->{$easter->year});
-            }
-        }
+    public function getStudentChristmasTimesAttribute() {
+        return $this->convertChristmasTimes('student_times');
+    }
 
-        return null;
+    public function getStudentEasterTimesAttribute() {
+        return $this->convertEasterTimes('student_times');
     }
 
     public function getCardLinkIdAttribute() {
@@ -143,6 +121,44 @@ class Campus extends Model implements SluggableInterface {
         return $this->getUrlAttribute();
     }
 
+    protected function convertTimes($table = 'times') {
+        $times = json_decode($this->getOriginal($table));
+
+        if (property_exists($times, 'normal')) {
+            return $this->prepareTimes($times->normal);
+        }
+
+        return null;
+    }
+
+    protected function convertChristmasTimes($table = 'times') {
+        $today = Carbon::today();
+        $christmas = $today->copy()->month(12)->day(25)->endOfDay();
+
+        if ($christmas->isFuture() && $christmas->diffInDays($today) <= 32) {
+            $times = json_decode($this->getOriginal($table));
+            if (property_exists($times, 'christmas') && property_exists($times->christmas, $christmas->year)) {
+                return $this->prepareTimes($times->christmas->{$christmas->year});
+            }
+        }
+
+        return null;
+    }
+
+    protected function convertEasterTimes($table = 'times') {
+        $today = Carbon::today();
+        $easter = Carbon::createFromTimestamp(easter_date($today->year))->endOfDay();
+
+        if ($easter->isFuture() && $easter->diffInDays($today) <= 32) {
+            $times = json_decode($this->getOriginal($table));
+            if (property_exists($times, 'easter') && property_exists($times->easter, $easter->year)) {
+                return $this->prepareTimes($times->easter->{$easter->year});
+            }
+        }
+
+        return null;
+    }
+
     private function prepareTimes(&$services) {
         foreach($services as $service) {
             $service->formatted_times = $this->formatTimes($service->times);
@@ -166,5 +182,18 @@ class Campus extends Model implements SluggableInterface {
 
         return implode(', ', $formatted_times);
 
+    }
+
+    private function formatServices($services) {
+
+        if (!$services) {
+            return '';
+        }
+
+        $times = array_map(function($service) {
+            return $service->day . ' at ' . $service->formatted_times;
+        }, $services);
+
+        return implode(', ', $times);
     }
 }
