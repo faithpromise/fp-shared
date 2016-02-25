@@ -50,6 +50,21 @@ class Campus extends Model implements SluggableInterface {
         return null;
     }
 
+    public function getFormattedTimesAttribute() {
+
+        $services = $this->times;
+
+        if (!$services) {
+            return '';
+        }
+
+        $times = array_map(function($service) {
+            return $service->day . ' at ' . $service->formatted_times;
+        }, $services);
+
+        return implode(', ', $times);
+    }
+
     public function getChristmasTimesAttribute() {
         $today = Carbon::today();
         $christmas = $today->copy()->month(12)->day(25)->endOfDay();
