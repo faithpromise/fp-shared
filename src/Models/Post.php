@@ -75,7 +75,7 @@ class Post extends Model implements SluggableInterface {
 
     public function scopeByLocation($query, $location) {
         return $query->whereHas('post_locations', function ($q) use ($location) {
-            $q->where('location', '=', $location);
+            $q->where('location', '=', $location)->orderBy('sort');
         });
     }
 
