@@ -27,6 +27,10 @@ class Campus extends Model implements SluggableInterface {
         return $this->hasMany('FaithPromise\Shared\Models\Staff', 'campus_id')->orderBy('sort');
     }
 
+    public function easter_services() {
+        return $this->hasMany(EasterService::class);
+    }
+
     public function getFullNameAttribute() {
         return $this->name . ' Campus';
     }
