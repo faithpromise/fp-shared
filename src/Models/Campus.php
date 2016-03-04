@@ -103,9 +103,10 @@ class Campus extends Model implements SluggableInterface {
             return null;
         }
 
-        foreach($this->times as $service) {
+        foreach ($this->times as $service) {
             $formatted[] = substr($service->day, 0, 3) . ' at ' . $service->formatted_times;
         }
+
         return implode('<br>', $formatted);
     }
 
@@ -160,15 +161,16 @@ class Campus extends Model implements SluggableInterface {
     }
 
     private function prepareTimes(&$services) {
-        foreach($services as $service) {
+        foreach ($services as $service) {
             $service->formatted_times = $this->formatTimes($service->times);
         }
+
         return $services;
     }
 
     private function formatTimes($times) {
 
-        $formatted_times = array_map(function($time) {
+        $formatted_times = array_map(function ($time) {
             return '<span class="no-wrap">' . $time . '</span>';
         }, $times);
 
@@ -177,7 +179,7 @@ class Campus extends Model implements SluggableInterface {
         if ($num_items === 2) {
             $formatted_times = [implode(' &amp; ', $formatted_times)];
         } else if ($num_items > 2) {
-            $formatted_times[$num_items-1] = '&amp; ' . end($formatted_times);
+            $formatted_times[$num_items - 1] = '&amp; ' . end($formatted_times);
         }
 
         return implode(', ', $formatted_times);
@@ -190,7 +192,7 @@ class Campus extends Model implements SluggableInterface {
             return '';
         }
 
-        $times = array_map(function($service) {
+        $times = array_map(function ($service) {
             return $service->day . ' at ' . $service->formatted_times;
         }, $services);
 
