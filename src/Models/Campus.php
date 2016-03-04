@@ -124,7 +124,7 @@ class Campus extends Model implements SluggableInterface {
     protected function convertTimes($table = 'times') {
         $times = json_decode($this->getOriginal($table));
 
-        if (property_exists($times, 'normal')) {
+        if (is_object($times) AND property_exists($times, 'normal')) {
             return $this->prepareTimes($times->normal);
         }
 
