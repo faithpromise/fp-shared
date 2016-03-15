@@ -33,7 +33,7 @@ class Video extends Model implements SluggableInterface {
     public function getImageAttribute() {
         $series = $this->Series;
         if ($series->is_official) {
-            return 'images/series/' . $series->slug . '-tall.jpg';
+            return $series->image;
         } else if ($this->Speaker) {
             return $this->Speaker->image;
         } else {
