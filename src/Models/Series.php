@@ -38,6 +38,9 @@ class Series extends Model implements SluggableInterface {
     }
 
     public function getImageAttribute() {
+        if ($this->site === 'fpstudents') {
+            return 'images/fpstudents/series/' . $this->slug . '-wide.jpg';
+        }
         return 'images/series/' . $this->slug . '-wide.jpg';
     }
 
