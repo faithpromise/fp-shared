@@ -22,6 +22,9 @@ class Series extends Model implements SluggableInterface {
     use SiteContextTrait;
 
     protected $dates = ['starts_at', 'publish_at', 'created_at', 'updated_at'];
+    protected $casts = [
+        'alignment_resources' => 'array'
+    ];
 
     protected $sluggable = [
         'build_from'      => 'title',
@@ -35,6 +38,10 @@ class Series extends Model implements SluggableInterface {
 
     public function promo() {
         return $this->hasOne('FaithPromise\Shared\Models\Video')->where('type', '=', 'promo');
+    }
+
+    public function alignment_resources() {
+        return $this->hasMany(AlignmentResource::class)->orderBy('sort');
     }
 
     public function getImageAttribute() {
