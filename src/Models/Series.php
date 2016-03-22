@@ -40,7 +40,7 @@ class Series extends Model implements SluggableInterface {
         return $this->hasOne('FaithPromise\Shared\Models\Video')->where('type', '=', 'promo');
     }
 
-    public function alignment_resources() {
+    public function alignmentResources() {
         return $this->hasMany(AlignmentResource::class)->orderBy('sort');
     }
 
