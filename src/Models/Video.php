@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use FaithPromise\Shared\Traits\PublishedTrait;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
+use VTalbot\Markdown\Facades\Markdown;
 
 class Video extends Model implements SluggableInterface {
 
@@ -61,6 +62,14 @@ class Video extends Model implements SluggableInterface {
 
     public function getVideoDateAttribute() {
         return ($this->type != 'sermon' || is_null($this->sermon_date)) ? $this->publish_at : $this->sermon_date;
+    }
+
+    public function getHasResourcesAttribute() {
+        return !empty($this->getOriginal('resources'));
+    }
+
+    public function getResourcesAttribute() {
+        return trim(Markdown::string($this->getOriginal('resources')));
     }
 
 }
