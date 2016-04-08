@@ -25,7 +25,7 @@ class PublicScope implements Scope {
             $query->where($column, '<', Carbon::now($this->timezone));
         });
 
-        $this->addWithSecret($builder);
+        $this->addWithPrivate($builder);
     }
 
     /**
@@ -33,8 +33,8 @@ class PublicScope implements Scope {
      *
      * @param \Illuminate\Database\Eloquent\Builder $builder
      */
-    protected function addWithSecret(Builder $builder) {
-        $builder->macro('withSecret', function (Builder $builder) {
+    protected function addWithPrivate(Builder $builder) {
+        $builder->macro('withPrivate', function (Builder $builder) {
             return $builder->withoutGlobalScope($this);
         });
     }
