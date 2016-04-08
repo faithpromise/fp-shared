@@ -23,6 +23,8 @@ class PublishedScope implements Scope {
         $column = $model->getQualifiedPublishedColumn();
 
         $builder->where(function($query) use ($column) {
+            // TODO: Need to remove whereNull clause - doesn't make sense
+            // publish_at null should mean not published
             $query->whereNull($column)->orWhere($column, '<', Carbon::now($this->timezone));
         });
 
