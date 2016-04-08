@@ -2,6 +2,7 @@
 
 namespace FaithPromise\Shared\Models;
 
+use FaithPromise\Shared\Interfaces\CardInterface;
 use FaithPromise\Shared\Traits\SiteContextTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +27,7 @@ use Cviebrock\EloquentSluggable\SluggableTrait;
  * @property string $url
  * @property string $url_text
  */
-class Post extends Model implements SluggableInterface {
+class Post extends Model implements SluggableInterface, CardInterface {
 
     use PublishedTrait;
     use ExpiredTrait;
