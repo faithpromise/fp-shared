@@ -8,6 +8,7 @@ use FaithPromise\Shared\Traits\ExpiredTrait;
 use FaithPromise\Shared\Traits\PublicTrait;
 use FaithPromise\Shared\Traits\PublishedTrait;
 use Illuminate\Database\Eloquent\Model;
+use VTalbot\Markdown\Facades\Markdown;
 
 class Job extends Model implements CardInterface {
 
@@ -23,6 +24,14 @@ class Job extends Model implements CardInterface {
         'save_to'    => 'slug',
         'unique'     => false
     ];
+
+    public function contact() {
+        return $this->hasOne(Staff::class, 'id', 'contact_id');
+    }
+
+    public function getDescriptionAttribute() {
+        return trim(Markdown::string($this->getOriginal('description')));
+    }
 
     public function getCardTitleAttribute() {
         return $this->title;
@@ -47,4 +56,5 @@ class Job extends Model implements CardInterface {
     public function getCardUrlTextAttribute() {
         return 'More Details';
     }
+
 }
