@@ -22,7 +22,7 @@ class PublicScope implements Scope {
         $column = $model->getQualifiedPublicColumn();
 
         $builder->where(function ($query) use ($column) {
-            $query->where($column, '<', Carbon::now($this->timezone));
+            $query->where($column, '<=', Carbon::now($this->timezone));
         });
 
         $this->addWithPrivate($builder);
