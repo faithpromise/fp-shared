@@ -3,6 +3,7 @@
 namespace FaithPromise\Shared\Models;
 
 use Carbon\Carbon;
+use FaithPromise\Shared\Interfaces\CardInterface;
 use FaithPromise\Shared\Traits\SiteContextTrait;
 use Illuminate\Database\Eloquent\Model;
 use FaithPromise\Shared\Traits\PublishedTrait;
@@ -15,7 +16,7 @@ use Cviebrock\EloquentSluggable\SluggableTrait;
  *
  * @method static \Illuminate\Support\Collection currentSeries()
  */
-class Series extends Model implements SluggableInterface {
+class Series extends Model implements SluggableInterface, CardInterface {
 
     use PublishedTrait;
     use SluggableTrait;
@@ -27,9 +28,9 @@ class Series extends Model implements SluggableInterface {
     ];
 
     protected $sluggable = [
-        'build_from'      => 'title',
-        'save_to'         => 'slug',
-        'unique'          => true
+        'build_from' => 'title',
+        'save_to'    => 'slug',
+        'unique'     => true
     ];
 
     public function videos() {
@@ -48,6 +49,7 @@ class Series extends Model implements SluggableInterface {
         if ($this->site === 'fpstudents') {
             return 'images/fpstudents/series/' . $this->slug . '-wide.jpg';
         }
+
         return 'images/series/' . $this->slug . '-wide.jpg';
     }
 
@@ -55,6 +57,7 @@ class Series extends Model implements SluggableInterface {
         if ($this->site === 'fpstudents') {
             return 'images/fpstudents/series/' . $this->slug . '-home-wide.jpg';
         }
+
         return 'images/series/' . $this->slug . '-home-wide.jpg';
     }
 
@@ -103,4 +106,27 @@ class Series extends Model implements SluggableInterface {
         return 'Begins this weekend';
     }
 
+    public function getCardTitleAttribute() {
+        return $this->title;
+    }
+
+    public function getCardSubtitleAttribute() {
+        $this->date;
+    }
+
+    public function getCardTextAttribute() {
+        return substr($this->description, 0, 100);
+    }
+
+    public function getCardImageAttribute() {
+        return $this->image;
+    }
+
+    public function getCardUrlAttribute() {
+        return $this->url;
+    }
+
+    public function getCardUrlTextAttribute() {
+        return 'More Details';
+    }
 }
