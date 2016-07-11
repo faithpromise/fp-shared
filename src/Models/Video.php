@@ -32,14 +32,7 @@ class Video extends Model implements SluggableInterface {
     }
 
     public function getImageAttribute() {
-        $series = $this->Series;
-        if ($series->is_official) {
-            return $series->image;
-        } else if ($this->Speaker) {
-            return $this->Speaker->image;
-        } else {
-            return 'images/general/default-tall.jpg';
-        }
+        return $this->Series->image;
     }
 
     public function getUrlAttribute() {
