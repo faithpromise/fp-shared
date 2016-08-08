@@ -39,6 +39,10 @@ class Video extends Model implements SluggableInterface {
         return route('seriesVideo', ['series' => $this->Series->slug, 'video' => $this->slug]);
     }
 
+    public function getAudioUrlAttribute() {
+        return empty($this->soundcloud_track_permalink) ? null : ('https://soundcloud.com/faithpromise/' . $this->soundcloud_track_permalink);
+    }
+
     public function getSpeakerDisplayNameAttribute() {
         if (strlen($this->speaker_name)) {
             return $this->speaker_name;
