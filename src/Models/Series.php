@@ -70,7 +70,7 @@ class Series extends Model implements SluggableInterface, CardInterface {
     }
 
     public function scopeCurrentSeries($query) {
-        $query->orderBy('publish_at', 'desc')->take(1);
+        $query->where('is_official', '=', true)->orderBy('publish_at', 'desc')->take(1);
     }
 
     public function getDate($next_series_starts) {
