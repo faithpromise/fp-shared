@@ -175,7 +175,10 @@ class Campus extends Model implements SluggableInterface {
     private function formatTimes($times) {
 
         $formatted_times = array_map(function ($time) {
-            return '<span class="no-wrap">' . $time . '</span>';
+            if (preg_match('/(\sam)|(\spm)$/', $time) === 1) {
+                return '<span class="no-wrap">' . $time . '</span>';
+            }
+            return $time;
         }, $times);
 
         $num_items = count($formatted_times);
