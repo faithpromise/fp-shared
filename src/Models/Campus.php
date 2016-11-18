@@ -63,6 +63,10 @@ class Campus extends Model implements SluggableInterface {
         return $this->convertChristmasTimes();
     }
 
+    public function getNewYearsTimesAttribute() {
+        return $this->convertNewYearsTimes();
+    }
+
     public function getEasterTimesAttribute() {
         return $this->convertEasterTimes();
     }
@@ -158,6 +162,24 @@ class Campus extends Model implements SluggableInterface {
             $times = json_decode($this->getOriginal($table));
             if (property_exists($times, 'easter') && property_exists($times->easter, $easter->year)) {
                 return $this->prepareTimes($times->easter->{$easter->year});
+            }
+        }
+
+        return null;
+    }
+
+    protected function convertNewYearsTimes($table = 'times') {
+        $today = Carbon::today();
+        $new_years_day = Carbon::today()->firstOfYear();
+
+        if ($new_years_day->isPast()) {
+            $new_years_day->addYear();
+        }
+
+        if ($new_years_day->diffInDays($today) <= 45) {
+            $times = json_decode($this->getOriginal($table));
+            if (property_exists($times, 'new_years') && property_exists($times->new_years, $new_years_day->year)) {
+                return $this->prepareTimes($times->new_years->{$new_years_day->year});
             }
         }
 
