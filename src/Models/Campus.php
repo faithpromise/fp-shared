@@ -140,7 +140,7 @@ class Campus extends Model implements SluggableInterface {
         $today = Carbon::today();
         $christmas = $today->copy()->month(12)->day(25)->endOfDay();
 
-        if ($christmas->isFuture() && $christmas->diffInDays($today) <= 32) {
+        if ($christmas->isFuture() && $christmas->diffInDays($today) <= 45) {
             $times = json_decode($this->getOriginal($table));
             if (property_exists($times, 'christmas') && property_exists($times->christmas, $christmas->year)) {
                 return $this->prepareTimes($times->christmas->{$christmas->year});
@@ -154,7 +154,7 @@ class Campus extends Model implements SluggableInterface {
         $today = Carbon::today();
         $easter = Carbon::createFromTimestamp(easter_date($today->year))->endOfDay();
 
-        if ($easter->isFuture() && $easter->diffInDays($today) <= 32) {
+        if ($easter->isFuture() && $easter->diffInDays($today) <= 45) {
             $times = json_decode($this->getOriginal($table));
             if (property_exists($times, 'easter') && property_exists($times->easter, $easter->year)) {
                 return $this->prepareTimes($times->easter->{$easter->year});
