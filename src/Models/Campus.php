@@ -101,6 +101,10 @@ class Campus extends Model implements SluggableInterface {
             return 'Check here for our regular & special Christmas service times...';
         }
 
+        if ($this->new_years_times) {
+            return 'Check here for our regular & special New Year\'s service times...';
+        }
+
         if ($this->easter_times) {
             return 'Check here for our regular & special Easter service times...';
         }
