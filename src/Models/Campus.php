@@ -174,7 +174,7 @@ class Campus extends Model implements SluggableInterface {
 
     protected function convertNewYearsTimes($table = 'times') {
         $today = Carbon::today();
-        $new_years_day = Carbon::today()->firstOfYear();
+        $new_years_day = Carbon::today()->firstOfYear()->endOfDay();
 
         if ($new_years_day->isPast()) {
             $new_years_day->addYear();
